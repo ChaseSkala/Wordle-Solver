@@ -27,3 +27,11 @@ Here are some related projects regarding the process of guessing the daily wordl
 
 [2nd API used](https://github.com/ChaseSkala/wordle-server)
 
+
+## Tech Stack
+
+**Backend**: Python + Django
+ 
+**Frontend**: HTML/CSS
+
+**Services Used**: AWS Lambda + DynamoDB
