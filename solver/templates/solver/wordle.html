@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+    <link rel="stylesheet" href="../../static/styles.css">
+    <title>Wordle Solver</title>
+</head>
+<body>
+    <h1>Wordle Solver</h1>
+
+    <div id="results-container">
+        <h2>Solution: {{ solution }}</h2>
+
+        <h3>Attempts: {{ attempts }}</h3>
+
+        <h3>Guess History:</h3>
+        <ul>
+            {% for guess in guesses %}
+                <li class="history-item">
+                    <strong>{{ guess.word|upper }}</strong>:
+                    {% for letter in guess.result %}
+                        <span class="letter-box {{ letter.status.name }}">
+                            {{ letter.letter|upper }}
+                        </span>
+                    {% endfor %}
+                </li>
+            {% empty %}
+                <li>No guesses yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

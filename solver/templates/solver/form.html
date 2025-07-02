@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WordleForm</title>
+    <link rel="stylesheet" href="../../static/styles.css">
+    <style>
+      #loading {
+        display: none;
+      }
+    </style>
+</head>
+<body>
+  <h1>Wordle Solver</h1>
+
+  <h2>Leaving this blank will result in an auto guess.</h2>
+
+  <form method="POST">
+    {{ forms.WordleSolverForm }}
+    {% csrf_token %}
+    <label for="guess"></label><input id="input-1" class="input-1" type="text" name="guess" id="guess" minlength='5' maxlength='5' placeholder="Enter 5 letter word.">
+    <button class="button-1" role="button" type="submit" id="button-1">Guess</button>
+  </form>
+  <div id="loading">
+    <h3>Please Wait...</h3>
+    <img src="../../static/loader.gif" alt="Loading...">
+  </div>
+  <script>
+    function loadGuess(event) {
+    event.preventDefault();
+
+    document.getElementById("button-1").style.display = "none";
+    document.getElementById("input-1").style.display = "none";
+    document.getElementById("loading").style.display = "block";
+
+    setTimeout(function() {
+        event.target.closest("form").submit();
+    }, 2000);
+}
+    document.getElementById("button-1").onclick = function(event) {
+      loadGuess(event);
+    };
+  </script>
+</body>
+</html>
