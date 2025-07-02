@@ -21,7 +21,7 @@ This is a project that allows the user to solve the daily wordle.
 
 Here are some related projects regarding the process of guessing the daily wordle.
 
-[The behind the scenes guessing of the wordle.](https://github.com/ChaseSkala/WordleProject)
+[The process of guessing the wordle.](https://github.com/ChaseSkala/WordleProject)
 
 [1st API used](https://github.com/ChaseSkala/Wordle-solver-API)
 
