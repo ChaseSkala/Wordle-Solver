@@ -42,9 +42,9 @@ def wordle_solver(request):
                     }
                 except requests.exceptions.JSONDecodeError:
                     context = {
-                        "solution": "ERROR",
-                        "attempts": "ERROR",
-                        "guesses": "ERROR",
+                        "solution": "ERROR, TRY AGAIN",
+                        "attempts": "ERROR, TRY AGAIN",
+                        "guesses": "ERROR, TRY AGAIN",
                     }
 
 
@@ -68,9 +68,9 @@ def wordle_solver(request):
                     }
                 except requests.exceptions.JSONDecodeError:
                     context = {
-                        "solution": "ERROR",
-                        "attempts": "ERROR",
-                        "guesses": "ERROR",
+                        "solution": "ERROR, TRY AGAIN",
+                        "attempts": "ERROR, TRY AGAIN",
+                        "guesses": "ERROR, TRY AGAIN",
                     }
 
 
