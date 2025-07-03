@@ -30,7 +30,7 @@ Here are some related projects regarding the process of guessing the daily wordl
 
 ## Tech Stack
 
-**Backend**: Python + Django
+**Backend**: Python + Django.
  
 **Frontend**: HTML/CSS
 
