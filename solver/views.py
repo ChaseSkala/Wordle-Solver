@@ -1,7 +1,10 @@
+from http.client import HTTPException
+from json import JSONDecodeError
+
 import requests
 import json
 
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.template import loader
 from django.shortcuts import render
 
@@ -14,16 +17,21 @@ def index(request):
 
 def wordle_solver(request):
     if request.method == "POST":
+
         form = WordleSolverForm(request.POST)
+
         if form.is_valid():
+
             guess = form.cleaned_data['guess']
 
             if guess:
+
                 url = "https://nw7ncdiil6lcwvxqbko2i65no40tuchx.lambda-url.us-east-2.on.aws/guess"
 
                 payload = json.dumps({
                     "guess": f"{guess}",
                 })
+
                 headers = {
                     'Content-Type': 'application/json'
                 }
@@ -31,21 +39,30 @@ def wordle_solver(request):
                 try:
 
                     response = requests.request("POST", url, headers=headers, data=payload)
-                    data = response.json()
-                    wordleData2 = WordleData.from_dict(data)
 
+                    if response.status_code == 200:
 
+                        data = response.json()
+
+                        wordleData2 = WordleData.from_dict(data)
+
+                        context = {
+                            "solution": wordleData2.solution,
+                            "attempts": wordleData2.attempts - 1,
+                            "guesses": wordleData2.guesses,
+                        }
+                        return render(request, 'solver/wordle.html', context)
+                    else:
+                        context = {
+                            "error": response.status_code,
+                        }
+                        return render(request, "solver/errorscreen.html", context)
+
+                except HTTPException as e:
                     context = {
-                        "solution": wordleData2.solution,
-                        "attempts": wordleData2.attempts - 1,
-                        "guesses": wordleData2.guesses,
+                        "error": str(e),
                     }
-                except requests.exceptions.JSONDecodeError:
-                    context = {
-                        "solution": "ERROR, TRY AGAIN",
-                        "attempts": "ERROR, TRY AGAIN",
-                        "guesses": "ERROR, TRY AGAIN",
-                    }
+                    return render(request, "solver/errorscreen.html", context)
 
 
 
@@ -58,22 +75,31 @@ def wordle_solver(request):
                 try:
 
                     response = requests.get(url)
-                    data = response.json()
-                    wordleData2 = WordleData.from_dict(data)
 
+                    if response.status_code == 200:
+
+                        data = response.json()
+
+                        wordleData2 = WordleData.from_dict(data)
+
+                        context = {
+                            "solution": wordleData2.solution,
+                            "attempts": wordleData2.attempts - 1,
+                            "guesses": wordleData2.guesses,
+                        }
+                        return render(request, 'solver/wordle.html', context)
+                    else:
+
+                        context = {
+                            "error": response.status_code,
+                        }
+
+                        return render(request, "solver/errorscreen.html", context)
+
+                except HTTPException as e:
                     context = {
-                        "solution": wordleData2.solution,
-                        "attempts": wordleData2.attempts - 1,
-                        "guesses": wordleData2.guesses,
+                        "error": str(e),
                     }
-                except requests.exceptions.JSONDecodeError:
-                    context = {
-                        "solution": "ERROR, TRY AGAIN",
-                        "attempts": "ERROR, TRY AGAIN",
-                        "guesses": "ERROR, TRY AGAIN",
-                    }
+                    return render(request, "solver/errorscreen.html", context)
 
-
-
-            return render(request, "solver/wordle.html", context)
     return render(request, "solver/form.html")
