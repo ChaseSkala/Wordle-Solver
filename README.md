@@ -16,7 +16,7 @@ This is a project that allows the user to solve the daily wordle.
 
 - [@Chase Skala](https://www.github.com/ChaseSkala)
 
-
+ 
 ## Related
 
 Here are some related projects regarding the process of guessing the daily wordle.
