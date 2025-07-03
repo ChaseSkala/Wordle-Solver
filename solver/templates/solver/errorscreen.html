@@ -9,6 +9,15 @@
   <h1>You have received an error...</h1>
   <h2>{{ error }}</h2>
   <h3>Please try the website again!</h3>
+  <button id="go-back" class="button-1">Go back</button>
+  <h1></h1>
   <img src="../../static/IMG_2574.JPG" alt="Cooked...">
+
+  <script>
+      function resetPage() {
+        window.history.back();
+      }
+      document.getElementById('go-back').addEventListener('click', resetPage);
+    </script>
 </body>
 </html>

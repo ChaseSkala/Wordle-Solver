@@ -28,5 +28,12 @@
             {% endfor %}
         </ul>
     </div>
+    <button id="go-back" class="button-1">Make another guess</button>
+    <script>
+        function resetPage() {
+            window.history.back();
+        }
+        document.getElementById('go-back').addEventListener('click', resetPage);
+    </script>
 </body>
 </html>
